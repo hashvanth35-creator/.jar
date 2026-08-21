@@ -13,14 +13,16 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Package the contents of the 'mod' folder into a .jar file
+    # Navigate into the mod folder and package its contents into a .jar file
     - name: Package Mod Folder as JAR
-      run: zip -r MyMinecraftMod.jar mod/*
+      run: |
+        cd mod
+        zip -r ../MyMinecraftMod.jar .
 
-    # Upload the .jar file to your release assets
+    # Attach the .jar file directly to your GitHub Release assets
     - name: Upload Jar to Release
       uses: softprops/action-gh-release@v1
       with:
         files: MyMinecraftMod.jar
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
